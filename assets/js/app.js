@@ -34,13 +34,39 @@ function addPending(e) {
     li.appendChild(deleteButton);
     // --> Add pending to the list
     listPendings.appendChild(li);
+
+    // --> Add to Local Storage
+    addPendingLocalStorage(pending);
 }
 
-// --> Pending removed
+// --> Pending removed del DOM
 function deletePending(e) {
     e.preventDefault();
     if(e.target.className === 'delete-pending') {
         e.target.parentElement.remove();
         alert('pending removed');
     }
+}
+
+// --> Add pending to Local Storage
+function addPendingLocalStorage(pending) {
+    let pendings;
+    pendings = getPendingsLocalStorage();
+    // Add new pending
+    pendings.push(pending);
+
+    // convert of string to array for local storage
+    localStorage.setItem('pendings', JSON.stringify(pendings));
+}
+
+// --> get pendings
+function getPendingsLocalStorage() {
+    let pendings;
+    // check values of local storage
+    if(localStorage.getItem('pendings') === null) {
+        pendings = [];
+    } else {
+        pendings = JSON.parse(localStorage.getItem('pendings'));
+    }
+    return pendings;
 }

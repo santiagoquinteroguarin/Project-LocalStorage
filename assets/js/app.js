@@ -12,7 +12,7 @@ function eventListener() {
     // Delete pendings
     listPendings.addEventListener('click', deletePending);
 
-    // content loaded
+    // Content loaded
     document.addEventListener('DOMContentLoaded', localStorageReady);
 }
 
@@ -42,16 +42,16 @@ function addPending(e) {
     addPendingLocalStorage(pending);
 }
 
-// --> Pending removed del DOM
+// --> Removed removed del DOM
 function deletePending(e) {
     e.preventDefault();
     if(e.target.className === 'delete-pending') {
         e.target.parentElement.remove();
-        alert('pending removed');
+        removedPendingLocalStorage(e.target.parentElement.innerText);
     }
 }
 
-// --> show local storage data in the list
+// --> Show local storage data in the list
 function localStorageReady() {
     let pendings;
 
@@ -80,18 +80,34 @@ function addPendingLocalStorage(pending) {
     // Add new pending
     pendings.push(pending);
 
-    // convert of string to array for local storage
+    // Convert of string to array for local storage
     localStorage.setItem('pendings', JSON.stringify(pendings));
 }
 
-// --> check that there are elements in the local storage, return an array
+// --> Check that there are elements in the local storage, return an array
 function getPendingsLocalStorage() {
     let pendings;
-    // check values of local storage
+    // Check values of local storage
     if(localStorage.getItem('pendings') === null) {
         pendings = [];
     } else {
         pendings = JSON.parse(localStorage.getItem('pendings'));
     }
     return pendings;
+}
+
+// Removed pending of Local Storage
+function removedPendingLocalStorage(pending) {
+    let pendings, removedPending;
+    // removed the X del pending
+    removedPending = pending.substring(0, pending.length - 1);
+
+    pendings = getPendingsLocalStorage();
+    // compare
+    pendings.forEach(function(pending, index) {
+        if(removedPending === pending) {
+            pendings.splice(index, 1);
+        }
+    });
+    localStorage.setItem('pendings', JSON.stringify(pendings));
 }

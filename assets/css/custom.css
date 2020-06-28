@@ -1,0 +1,14 @@
+h1, h2 {
+    text-align: center;
+}
+
+#content {
+    margin-top: 40px;
+}
+.delete-pending,
+.delete-pending:hover {
+    float: right;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+}
